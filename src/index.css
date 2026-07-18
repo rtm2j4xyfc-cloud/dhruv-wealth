@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f3ea;
+  --color-card: #ffffff;
+  --color-panel: #efe9db;
+  --color-ink: #1b1a16;
+  --color-body: #5c574d;
+  --color-neon: #a87b3d;
+  --color-ember: #75865f;
+
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-neon);
+  color: #fff;
+}
+
+/* Calm hero/panel surface — warm paper with the faintest golden light */
+.sky {
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(168, 123, 61, 0.1), transparent 70%),
+    var(--color-paper);
+}
+.sky > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Legacy effect classes, neutralized for the light theme */
+.grain::after {
+  content: none;
+}
+.glow-neon {
+  box-shadow: 0 10px 30px -10px rgba(27, 26, 22, 0.18);
+}
+.text-glow {
+  text-shadow: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  accent-color: var(--color-neon);
+}
+
+/* Scroll reveal — .reveal elements fade up when .in is added */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Widget animations, triggered when parent card gets .in */
+.bar-grow {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.in .bar-grow {
+  transform: scaleY(1);
+}
+
+.seg-pop {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.in .seg-pop {
+  opacity: 1;
+}
+
+.draw-line {
+  stroke-dasharray: 620;
+  stroke-dashoffset: 620;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+.in .draw-line {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .rise, .bar-grow, .seg-pop, .draw-line {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
